@@ -16,7 +16,7 @@ func Routers() *gin.Engine {
 
 	//https
 	//Router.Use(middleware.LoadTls())
-	//global.GVA_LOG.Info("use middleware tls")
+	//global.MD_LOG.Info("use middleware tls")
 
 	// 打开跨域请求
 	Router.Use(middleware.Cors())

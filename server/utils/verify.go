@@ -1,18 +1,25 @@
 package utils
 
 var (
-	IdVerify               = Rules{"ID": {NotEmpty()}}
-	ApiVerify              = Rules{"Path": {NotEmpty()}, "Description": {NotEmpty()}, "ApiGroup": {NotEmpty()}, "Method": {NotEmpty()}}
-	MenuVerify             = Rules{"Path": {NotEmpty()}, "ParentId": {NotEmpty()}, "Name": {NotEmpty()}, "Component": {NotEmpty()}, "Sort": {Ge("0")}}
-	MenuMetaVerify         = Rules{"Title": {NotEmpty()}}
-	LoginVerify            = Rules{"CaptchaId": {NotEmpty()}, "Captcha": {NotEmpty()}, "Username": {NotEmpty()}, "Password": {NotEmpty()}}
-	RegisterVerify         = Rules{"Username": {NotEmpty()}, "NickName": {NotEmpty()}, "Password": {NotEmpty()}, "AuthorityId": {NotEmpty()}}
-	PageInfoVerify         = Rules{"Page": {NotEmpty()}, "PageSize": {NotEmpty()}}
-	CustomerVerify         = Rules{"CustomerName": {NotEmpty()}, "CustomerPhoneData": {NotEmpty()}}
-	AutoCodeVerify         = Rules{"Abbreviation": {NotEmpty()}, "StructName": {NotEmpty()}, "PackageName": {NotEmpty()}, "Fields": {NotEmpty()}}
-	AuthorityVerify        = Rules{"AuthorityId": {NotEmpty()}, "AuthorityName": {NotEmpty()}, "ParentId": {NotEmpty()}}
-	AuthorityIdVerify      = Rules{"AuthorityId": {NotEmpty()}}
-	OldAuthorityVerify     = Rules{"OldAuthorityId": {NotEmpty()}}
-	ChangePasswordVerify   = Rules{"Username": {NotEmpty()}, "Password": {NotEmpty()}, "NewPassword": {NotEmpty()}}
-	SetUserAuthorityVerify = Rules{"AuthorityId": {NotEmpty()}}
+
+CreateContextLinkVerify = Rules{ "DocumentId": {NotEmpty()}, "Permission": {NotEmpty()}}
+GetContextByLinkVerify  = Rules{ "ContextLink": {NotEmpty()}}
+
+
+	CreateCatalogVerify     = Rules{"UserId":{NotEmpty()},"FatherCatalogId":{NotEmpty()},"CatalogName": {NotEmpty()}}
+	CreateDocumentVerify     = Rules{"UserId":{NotEmpty()},"FatherCatalogId":{NotEmpty()},"DocumentName": {NotEmpty()},
+		"Content":{NotEmpty()}}
+
+	CatalogIdVerify                = Rules{"CatalogId":{NotEmpty()}}
+	DocumentIdVerify                = Rules{"DocumentId":{NotEmpty()}}
+
+	UpdateContextNameVerify = Rules{"ContextId":{NotEmpty()},"NewName":{NotEmpty()}}
+	UpdateDocumentContentVerify =Rules{"DocumentId":{NotEmpty()},"NewContent":{NotEmpty()}}
+
+	GetCatalogsInfoByNameVerify = Rules{"CatalogName": {NotEmpty()},"Page": {NotEmpty()}, "PageSize": {NotEmpty()}}
+	GetContextsInfoVerify = Rules{"UserId":{NotEmpty()},"FatherCatalogId":{NotEmpty()},"Page": {NotEmpty()}, "PageSize": {NotEmpty()}}
+
+	LoginVerify             = Rules{"Username": {NotEmpty()}, "Password": {NotEmpty()}}
+	ChangePasswordVerify    = Rules{"Username": {NotEmpty()}, "Password": {NotEmpty()}, "NewPassword": {NotEmpty()}}
+
 )

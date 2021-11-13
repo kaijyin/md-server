@@ -1,9 +1,9 @@
 package global
 
 import (
+	"github.com/kaijyin/md-server/server/config"
 	"go.uber.org/zap"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/config"
 
 	"github.com/go-redis/redis/v8"
 	"github.com/spf13/viper"
@@ -11,9 +11,9 @@ import (
 )
 
 var (
-	GVA_DB     *gorm.DB
-	GVA_REDIS  *redis.Client
-	GVA_CONFIG config.Server
-	GVA_VP     *viper.Viper
-	GVA_LOG     *zap.Logger
+	MD_DB     *gorm.DB
+	MD_REDIS  *redis.Client
+	MD_CONFIG config.Server
+	MD_VP     *viper.Viper
+	MD_LOG    *zap.Logger
 )

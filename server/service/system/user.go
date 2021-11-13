@@ -2,12 +2,11 @@ package system
 
 import (
 	"errors"
+	"github.com/kaijyin/md-server/server/global"
+	"github.com/kaijyin/md-server/server/model/request"
+	"github.com/kaijyin/md-server/server/model/table"
+	"github.com/kaijyin/md-server/server/utils"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
-	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
 )
 
@@ -20,14 +19,14 @@ import (
 type UserService struct {
 }
 
-func (userService *UserService) Register(u system.User) (err error, userInter system.User) {
-	var user system.User
-	if !errors.Is(global.GVA_DB.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
+func (userService *UserService) Register(u table.User) (err error, userInter table.User) {
+	var user table.User
+	if !errors.Is(global.MD_DB.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
 		return errors.New("用户名已注册"), userInter
 	}
 	// 否则 附加uuid 密码md5简单加密 注册
 	u.Password = utils.MD5V([]byte(u.Password))
-	err = global.GVA_DB.Create(&u).Error
+	err = global.MD_DB.Create(&u).Error
 	return err, u
 }
 
@@ -37,10 +36,16 @@ func (userService *UserService) Register(u system.User) (err error, userInter sy
 //@param: u *model.User
 //@return: err error, userInter *model.User
 
-func (userService *UserService) Login(u *system.User) (err error, userInter *system.User) {
-	var user system.User
+func (userService *UserService) Login(u *table.User) (err error, userInter *table.User) {
+	var user table.User
 	u.Password = utils.MD5V([]byte(u.Password))
-	err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).Preload("Authorities").Preload("Authority").First(&user).Error
+	err = global.MD_DB.Where("username = ? ", u.Username).First(&user).Error
+	if errors.Is(gorm.ErrRecordNotFound,err){
+		//不存在就新建
+		err=global.MD_DB.Create(&user).Error
+	}else{
+		err = global.MD_DB.Where("username = ? and password = ?", u.Username, u.Password).First(&user).Error
+	}
 	return err, &user
 }
 
@@ -50,10 +55,10 @@ func (userService *UserService) Login(u *system.User) (err error, userInter *sys
 //@param: u *model.User, newPassword string
 //@return: err error, userInter *model.User
 
-func (userService *UserService) ChangePassword(u *system.User, newPassword string) (err error, userInter *system.User) {
-	var user system.User
+func (userService *UserService) ChangePassword(u *table.User, newPassword string) (err error, userInter *table.User) {
+	var user table.User
 	u.Password = utils.MD5V([]byte(u.Password))
-	err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).First(&user).Update("password", utils.MD5V([]byte(newPassword))).Error
+	err = global.MD_DB.Where("username = ? AND password = ?", u.Username, u.Password).First(&user).Update("password", utils.MD5V([]byte(newPassword))).Error
 	return err, u
 }
 
@@ -66,8 +71,8 @@ func (userService *UserService) ChangePassword(u *system.User, newPassword strin
 func (userService *UserService) GetUserInfoList(info request.PageInfo) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
-	db := global.GVA_DB.Model(&system.User{})
-	var userList []system.User
+	db := global.MD_DB.Model(&table.User{})
+	var userList []table.User
 	err = db.Count(&total).Error
 	if err != nil {
 		return
@@ -83,22 +88,11 @@ func (userService *UserService) GetUserInfoList(info request.PageInfo) (err erro
 //@param: reqUser model.User
 //@return: err error, user model.User
 
-func (userService *UserService) SetUserInfo(reqUser system.User) (err error, user system.User) {
-	err = global.GVA_DB.Updates(&reqUser).Error
+func (userService *UserService) SetUserInfo(reqUser table.User) (err error, user table.User) {
+	err = global.MD_DB.Updates(&reqUser).Error
 	return err, reqUser
 }
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: GetUserInfo
-//@description: 获取用户信息
-//@param: uuid uuid.UUID
-//@return: err error, user system.User
-
-func (userService *UserService) GetUserInfo(uuid uuid.UUID) (err error, user system.User) {
-	var reqUser system.User
-	err = global.GVA_DB.Preload("Authorities").Preload("Authority").First(&reqUser, "uuid = ?", uuid).Error
-	return err, reqUser
-}
 
 //@author: [SliverHorn](https://github.com/SliverHorn)
 //@function: FindUserById
@@ -106,22 +100,13 @@ func (userService *UserService) GetUserInfo(uuid uuid.UUID) (err error, user sys
 //@param: id int
 //@return: err error, user *model.User
 
-func (userService *UserService) FindUserById(id int) (err error, user *system.User) {
-	var u system.User
-	err = global.GVA_DB.Where("`id` = ?", id).First(&u).Error
+func (userService *UserService) FindUserById(id uint) (err error, user *table.User) {
+	var u table.User
+	err = global.MD_DB.Where("`id` = ?", id).First(&u).Error
 	return err, &u
 }
 
-//@author: [SliverHorn](https://github.com/SliverHorn)
-//@function: FindUserByUuid
-//@description: 通过uuid获取用户信息
-//@param: uuid string
-//@return: err error, user *model.User
-
-func (userService *UserService) FindUserByUuid(uuid string) (err error, user *system.User) {
-	var u system.User
-	if err = global.GVA_DB.Where("`uuid` = ?", uuid).First(&u).Error; err != nil {
-		return errors.New("用户不存在"), &u
-	}
-	return nil, &u
+func (userService *UserService) DeleteUser(id uint) (err error) {
+	err = global.MD_DB.Delete(&table.User{},id).Error
+	return err
 }

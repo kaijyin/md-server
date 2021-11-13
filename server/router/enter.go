@@ -1,11 +1,13 @@
 package router
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/router/system"
+	"github.com/kaijyin/md-server/server/router/core"
+	"github.com/kaijyin/md-server/server/router/system"
 )
 
 type RouterGroup struct {
-	System   system.RouterGroup
+   Core core.RouterGroup
+   System system.RouterGroup
 }
 
 var RouterGroupApp = new(RouterGroup)

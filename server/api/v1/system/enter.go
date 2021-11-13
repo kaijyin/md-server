@@ -1,15 +1,14 @@
 package system
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/kaijyin/md-server/server/service"
 )
 
-type ApiGroup struct {
+type SysGroup struct {
 	BaseApi
 	SystemApi
 }
 
-var jwtService = service.ServiceGroupApp.SystemServiceGroup.JwtService
-var operationRecordService = service.ServiceGroupApp.SystemServiceGroup.OperationRecordService
-var userService = service.ServiceGroupApp.SystemServiceGroup.UserService
-var systemConfigService = service.ServiceGroupApp.SystemServiceGroup.SystemConfigService
+var jwtService = service.ServiceGroupApp.System.JwtService
+var userService = service.ServiceGroupApp.System.UserService
+var systemConfigService = service.ServiceGroupApp.System.SystemConfigService

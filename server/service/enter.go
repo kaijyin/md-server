@@ -1,11 +1,13 @@
 package service
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
+	"github.com/kaijyin/md-server/server/service/core"
+	"github.com/kaijyin/md-server/server/service/system"
 )
 
 type ServiceGroup struct {
-	SystemServiceGroup   system.ServiceGroup
+	System  system.ServiceGroup
+	Core core.ServiceGroup
 }
 
 var ServiceGroupApp = new(ServiceGroup)
