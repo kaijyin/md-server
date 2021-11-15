@@ -1,34 +1,43 @@
 package request
 
+type UserId struct {
+	UserId uint `json:"userId"`
+}
 type CreateCatalogReq struct {
+	UserId
 	FatherCatalogId uint   `json:"fatherCatalogId"`
 	CatalogName     string `json:"catalogName"`
 }
 
 type CreateDocumentReq struct {
+	UserId
 	FatherCatalogId uint   `json:"fatherCatalogId"`
 	DocumentName    string `json:"documentName"`
 	Content         string `json:"content"`
 }
 
+type DeleteCatalogReq struct {
+	UserId
+	CatalogId uint `json:"catalogId"`
+}
 type DeleteDocumentReq struct {
+	UserId
 	DocumentId uint `json:"documentId"`
 }
 
-type DeleteCatalogReq struct {
-	CatalogId uint `json:"catalogId"`
-}
-
 type GetContentByIdReq struct {
+	UserId
 	DocumentId uint `json:"documentId"`
 }
 
 type UpdateContextNameReq struct {
+	UserId
 	ContextId uint   `json:"contextId"`
 	NewName   string `json:"newName"`
 }
 
 type UpdateContentReq struct {
+	UserId
 	DocumentId uint   `json:"documentId"`
 	NewContent string `json:"newContent"`
 }
@@ -41,11 +50,13 @@ type PageList struct {
 }
 
 type GetContextsInfoReq struct {
+	UserId
 	FatherCatalogId uint `json:"fatherCatalogId"`
 	PageList
 }
 
 type GetCatalogsInfoByNameReq struct {
+	UserId
 	CatalogName string `json:"catalogName"`
 	PageList
 }

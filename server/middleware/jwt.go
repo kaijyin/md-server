@@ -42,7 +42,7 @@ func JWTAuth() gin.HandlerFunc {
 			c.Header("new-token", newToken)
 			c.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10))
 		}
-		c.Set("claims", claims)
+		c.Set("userId", claims.UserId)
 		c.Next()
 	}
 }

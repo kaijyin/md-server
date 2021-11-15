@@ -31,7 +31,7 @@ func (a *AuthorityApi) CreateContextLink(c *gin.Context) {
 		global.MD_LOG.Error("分享链接创建失败!", zap.Any("err", err))
 		response.FailWithMessage("分享链接创建失败"+err.Error(), c)
 	} else {
-		response.OkWithDetailed(contextLink, "分享链接创建成功", c)
+		response.OkWithData(contextLink,c)
 	}
 }
 

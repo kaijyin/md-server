@@ -29,11 +29,11 @@ func (s *ContextApi) CreateCatalog(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := ContextService.CreateCatalog(req); err != nil {
+	if err,resp := ContextService.CreateCatalog(req); err != nil {
 		global.MD_LOG.Error("创建目录失败!", zap.Any("err", err))
 		response.FailWithMessage("创建目录失败", c)
 	} else {
-		response.OkWithMessage("创建目录成功", c)
+		response.OkWithDetailed(resp,"创建目录成功", c)
 	}
 }
 
@@ -44,27 +44,18 @@ func (s *ContextApi) CreateDocument(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := ContextService.CreateDocument(req); err != nil {
+	if err,resp:= ContextService.CreateDocument(req); err != nil {
 		global.MD_LOG.Error("创建文档失败!", zap.Any("err", err))
 		response.FailWithMessage("创建文档失败", c)
 	} else {
-		response.OkWithMessage("创建文档成功", c)
+		response.OkWithDetailed(resp,"创建文档成功", c)
 	}
 }
-
-// @Tags SysApi
-// @Summary 删除api
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body system.SysApi true "ID"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
-// @Router /api/deleteApi [post]
 
 func (s *ContextApi) DeleteCatalog(c *gin.Context) {
 	var req request.DeleteCatalogReq
 	_ = c.ShouldBindJSON(&req)
-	if err := utils.Verify(req, utils.IdVerify); err != nil {
+	if err := utils.Verify(req, utils.CatalogIdVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -76,11 +67,10 @@ func (s *ContextApi) DeleteCatalog(c *gin.Context) {
 	}
 }
 
-
 func (s *ContextApi) DeleteDocument(c *gin.Context) {
 	var req request.DeleteDocumentReq
 	_ = c.ShouldBindJSON(&req)
-	if err := utils.Verify(req, utils.IdVerify); err != nil {
+	if err := utils.Verify(req, utils.DocumentIdVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -114,14 +104,14 @@ func (s *ContextApi) UpdateContextName(c *gin.Context) {
 	}
 }
 
-func (s *ContextApi) UpdateContextContent(c *gin.Context) {
+func (s *ContextApi) UpdateDocumentContent(c *gin.Context) {
 	var req request.UpdateContentReq
 	_ = c.ShouldBindJSON(&req)
 	if err := utils.Verify(req, utils.UpdateDocumentContentVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := ContextService.UpdateContextContent(req); err != nil {
+	if err := ContextService.UpdateDocumentContent(req); err != nil {
 		global.MD_LOG.Error("修改失败!", zap.Any("err", err))
 		response.FailWithMessage("修改失败", c)
 	} else {
@@ -146,16 +136,11 @@ func (s *ContextApi) GetCatalogsInfoByName(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err, list, total := ContextService.GetCatalogsByName(req); err != nil {
+	if err, resp:= ContextService.GetCatalogsByName(req); err != nil {
 		global.MD_LOG.Error("获取失败!", zap.Any("err", err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     req.Page,
-			PageSize: req.PageSize,
-		}, "获取成功", c)
+		response.OkWithDetailed(resp, "获取成功", c)
 	}
 }
 
@@ -166,16 +151,11 @@ func (s *ContextApi) GetContextsInfo(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err, list, total := ContextService.GetContexts(req); err != nil {
+	if err, resp := ContextService.GetContexts(req); err != nil {
 		global.MD_LOG.Error("获取失败!", zap.Any("err", err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     req.Page,
-			PageSize: req.PageSize,
-		}, "获取成功", c)
+		response.OkWithDetailed(resp, "获取成功", c)
 	}
 }
 // @Tags SysApi
@@ -187,17 +167,17 @@ func (s *ContextApi) GetContextsInfo(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /api/getApiById [post]
 
-func (s *ContextApi) GetContextById(c *gin.Context) {
-	var req request.GetContextByIdReq
+func (s *ContextApi) GetContentById(c *gin.Context) {
+	var req request.GetContentByIdReq
 	_ = c.ShouldBindJSON(&req)
-	if err := utils.Verify(req, utils.IdVerify); err != nil {
+	if err := utils.Verify(req, utils.DocumentIdVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if	err, context := ContextService.GetContextById(req);err != nil {
+	if	err, context := ContextService.GetContentById(req);err != nil {
 		global.MD_LOG.Error("获取失败!", zap.Any("err", err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithData(response.ContextResponse{Context: context}, c)
+		response.OkWithData(context, c)
 	}
 }

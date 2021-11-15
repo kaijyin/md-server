@@ -3,7 +3,6 @@ package core
 import (
 	"github.com/gin-gonic/gin"
 	v1 "github.com/kaijyin/md-server/server/api/v1"
-	"github.com/kaijyin/md-server/server/middleware"
 )
 
 type ContextRouter struct {
@@ -12,23 +11,25 @@ type ContextRouter struct {
 func (s *ContextRouter) InitContextRouter(Router *gin.RouterGroup) {
 	contextRouter := Router.Group("context")
 	contextRouterApi := v1.ApiGroupApp.CoreApiGroup.ContextApi
-	CatalogRouter :=contextRouter.Group("catalog")
-	DocumentRouter :=contextRouter.Group("document")
+	catalogRouter :=contextRouter.Group("catalog")
+	documentRouter :=contextRouter.Group("document")
 	{
-		contextRouter.GET("/:fatherContextId",contextRouterApi.GetContextsInfo)
+		contextRouter.GET("/:fatherCatalogId",contextRouterApi.GetContextsInfo)
 	}
 
 	{
-		CatalogRouter.GET("/:catalogName/:page/:pageSize",contextRouterApi.GetCatalogsInfoByName)
-		CatalogRouter.GET("/:catalogName/:page/:pageSize/:desc",contextRouterApi.GetCatalogsInfoByName)
+		catalogRouter.GET("/:catalogName/:page/:pageSize",contextRouterApi.GetCatalogsInfoByName)
+		catalogRouter.GET("/:catalogName/:page/:pageSize/:desc",contextRouterApi.GetCatalogsInfoByName)
 
-		CatalogRouter.PUT("/:fatherContextId/:catalogName",contextRouterApi.CreateCatalog)
-		CatalogRouter.DELETE("/:fatherContextId/:catalogId",contextRouterApi.DeleteContext)
+		catalogRouter.POST("/:fatherCatalogId/:catalogName",contextRouterApi.CreateCatalog)
+		catalogRouter.PUT("/:contextId/:newName",contextRouterApi.UpdateContextName)
+		catalogRouter.DELETE("/:catalogId",contextRouterApi.DeleteCatalog)
 	}
 
 	{
-     contextRouter.POST("name",contextRouterApi.CreateContext)
-     contextRouter.PUT("name",contextRouterApi.UpdateContextName)
-     contextRouter.GET("name",contextRouterApi.GetCatalogsInfoByName)
+       documentRouter.GET("/:documentId",contextRouterApi.GetContentById)
+       documentRouter.POST("/:fatherCatalogId/:contextName",contextRouterApi.CreateDocument)
+       documentRouter.PUT("/:contextId/:newName",contextRouterApi.UpdateContextName)
+       documentRouter.DELETE("/:documentId",contextRouterApi.DeleteDocument)
 	}
 }

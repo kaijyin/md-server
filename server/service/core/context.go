@@ -8,11 +8,7 @@ import (
 	"github.com/kaijyin/md-server/server/model/table"
 )
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: CreateApi
-//@description: 新增基础api
-//@param: api model.SysApi
-//@return: err error
+
 
 type ContextService struct {
 }
@@ -30,27 +26,23 @@ func (apiService *ContextService) CreateDocument(req request.CreateDocumentReq) 
 
 }
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: DeleteContext
-//@description: 删除基础api
-//@param: api model.SysApi
-//@return: err error
+
 
 //先检查有没有权限,再删除
 
-func (apiService *ContextService) DeleteContext(req request.DeleteContextReq) (err error) {
+func (apiService *ContextService) DeleteDocument(req request.DeleteDocumentReq) (err error) {
 
 }
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: GetAPIInfoList
-//@description: 分页获取数据,
-//@param: api model.SysApi, info request.PageInfo, order string, desc bool
-//@return: err error
+func (apiService *ContextService) DeleteCatalog(req request.DeleteCatalogReq) (err error) {
+
+}
+
+
 
 //直接搜索
 
-func (apiService *ContextService) GetCatalogsByName(req request.GetCatalogsInfoByNameReq) (err error,list response.CatalogInfoList) {
+func (apiService *ContextService) GetCatalogsByName(req request.GetCatalogsInfoByNameReq) (err error,resp response.CatalogInfoList) {
 	limit := req.PageSize
 	offset := req.PageSize * (req.Page - 1)
 	var contextList []table.Context
@@ -65,31 +57,24 @@ func (apiService *ContextService) GetCatalogsByName(req request.GetCatalogsInfoB
 		db=db.Order("context_name")
 	}
 	err=db.Scan(&contextList).Error
-	return err, contextList, total
+	return err, resp
 }
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: GetAllContexts
-//@description: 获取所有的api
-//@return: err error, apis []model.SysApi
+
 
 //获取用户所有
 
 func (apiService *ContextService) GetContexts(searchReq request.GetContextsInfoReq) (err error, list response.ContextInfoList) {
 	limit := searchReq.PageSize
 	offset := searchReq.PageSize * (searchReq.Page - 1)
-	var contextList []model.Document
-	if searchReq.IsRoot{
-		searchReq.FatherCatalogId=0
-	}
 	db:=global.MD_DB.Table("core").
 		Select("core.id core.core").
 		Joins("left join core on core.context_id = core.id").
 		Where("core.user_id = ? and father_catalog_id = ?",searchReq.UserId,searchReq.FatherCatalogId).
 		Offset(offset).Limit(limit)
-	err=db.Count(&total).Error
+	err=db.Count(&list.Total).Error
 	if err !=nil{
-		return err, contextList, total
+		return err, list
 	}
 	db=db.Order("is_catalog")
 	if searchReq.Desc{
@@ -97,27 +82,17 @@ func (apiService *ContextService) GetContexts(searchReq request.GetContextsInfoR
 	}else{
 		db=db.Order("context_name")
 	}
-	err=db.Scan(&contextList).Error
-	return err, contextList, total
+	err=db.Scan(&list.ContextsInfo).Error
+	return err, list
 }
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: GetContextById
-//@description: 根据id获取api
-//@param: id float64
-//@return: err error, api model.SysApi
 
 //先检查用户有没有查看权限,有权限再获取
 
-func (apiService *ContextService) GetContextById(req request.GetContextByIdReq) (err error, content response.GetContextContentResp) {
+func (apiService *ContextService) GetContentById(req request.GetContentByIdReq) (err error, content response.GetContextContentResp) {
 	return err,content
 }
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: UpdateContext
-//@description: 根据id更新api
-//@param: api model.SysApi
-//@return: err error
 
 //先检查用户有没有权限修改,有权限再改
 

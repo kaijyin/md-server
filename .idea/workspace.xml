@@ -2,62 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05a23636-bce9-4858-a609-6731f7f3f1ba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/md-server.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/content/sys_api.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/control/sys_authority.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/enter.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/enter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/system/enter.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/system/enter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/system/sys_system.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/system/sys_user.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/config/system.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/system.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/api/v1/core/authority.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/core/authority.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/api/v1/core/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/core/context.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/global/constant.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/global/global.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/global/global.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/global/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/global/model.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/server/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/initialize/gorm.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/initialize/gorm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/initialize/redis.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/initialize/redis.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/initialize/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/initialize/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middleware/casbin_rbac.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middleware/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/middleware/error.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/middleware/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/middleware/jwt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middleware/limit_ip.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middleware/operation.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/middleware/operation.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/common/request/common.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/common/response/common.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/common/response/response.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/context/context.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/context/request/context.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/control/control.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/system/request/jwt.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/system/request/sys_user.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/system/response/sys_system.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/system/response/sys_user.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/system/system.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/system/user.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/content/sys_api.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/enter.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/enter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/system/enter.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/system/enter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/system/sys_base.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/system/sys_base.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/system/sys_system.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/system/sys_system.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/system/sys_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/system/sys_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/context/context.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/control/control.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/enter.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/enter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/system/system.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/system/system.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/system/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/system/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/system/userCache.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/source/api.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/source/authority.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/source/casbin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/source/data_authorities.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/source/user_authority.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/utils/breakpoint_continue.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/breakpoint_continue.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/utils/clamis.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/clamis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/utils/directory.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/directory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/utils/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/request/content.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/model/request/content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/request/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/model/request/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/response/content.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/model/response/content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/router/core/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/core/context.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/router/core/control.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/core/authority.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/router/core/enter.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/core/enter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/service/core/authority.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/core/authority.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/service/core/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/core/context.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/utils/verify.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/verify.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,12 +44,23 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Demo/gin-vue-admin" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

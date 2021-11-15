@@ -12,6 +12,5 @@ type CustomClaims struct {
 }
 
 type BaseClaims struct {
-	ID          uint
-	Username    string
+	UserId      uint
 }

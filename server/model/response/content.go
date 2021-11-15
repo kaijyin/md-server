@@ -25,6 +25,7 @@ type ContextInfo struct {
 	ContextName string `json:"catalogName"`
 }
 type ContextInfoList struct {
-	List []ContextInfo
+	ContextsInfo []ContextInfo
+	Total int64 `json:"total"`
 }
 
